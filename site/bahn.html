@@ -29,8 +29,7 @@
         authorization. No account, no API key, no signup: send the payment payload, get the
         answer.
       </p>
-      <p><em>Coverage: German rail (DB/regional DACH feeds) via transitous.org (MOTIS). No SLA —
-      data sources are live feeds and can change.</em></p>
+      <p><em>Coverage: German rail (DB/regional DACH feeds). No SLA — data sources are live feeds and can change.</em></p>
     </section>
 
     <section id="endpoints">
@@ -52,8 +51,8 @@
           <tr><th>Field</th><th>Required</th><th>Default</th><th>Description</th></tr>
         </thead>
         <tbody>
-          <tr><td><code>trip_id</code></td><td>yes</td><td>—</td><td>transitous tripId of the train you are on (from the <code>tripId</code> field of a stoptimes query, e.g. <code>20260908_14:11_de-DELFI_3398194072</code>)</td></tr>
-          <tr><td><code>to</code></td><td>yes</td><td>—</td><td>destination stopId (transitous), e.g. <code>de-DELFI_de:11000:900003200:1:51</code> for Berlin Hbf</td></tr>
+          <tr><td><code>trip_id</code></td><td>yes</td><td>—</td><td>tripId of the train you are on (from the <code>tripId</code> field of a departure-board query, e.g. <code>20260908_14:11_de-DELFI_3398194072</code>)</td></tr>
+          <tr><td><code>to</code></td><td>yes</td><td>—</td><td>destination stopId, e.g. <code>de-DELFI_de:11000:900003200:1:51</code> for Berlin Hbf</td></tr>
           <tr><td><code>min_buffer</code></td><td>no</td><td>8</td><td>transfer buffer threshold in minutes; below this, an option is flagged as risky (<code>risk: "risiko"</code>)</td></tr>
           <tr><td><code>manual_delay</code></td><td>no</td><td>null</td><td>override the current delay in minutes (e.g. the PA announcement says more than the live feed); applied to all stops</td></tr>
           <tr><td><code>from_stop_name</code></td><td>no</td><td>null</td><td>only analyze stops whose name contains this substring (saves time on long routes)</td></tr>
@@ -129,7 +128,7 @@
           <tr><td><code>400</code></td><td>malformed request: unknown endpoint, missing body, invalid JSON, or missing <code>trip_id</code>/<code>to</code></td></tr>
           <tr><td><code>402</code></td><td>payment required/failed. No header → <code>PAYMENT-REQUIRED</code> header with the payment details (10 USDC-cents to 0x984a…F97f on Base). Invalid payment → <code>PAYMENT-RESPONSE</code> header with the x402 error reason (<code>insufficient_funds</code>, <code>invalid_signature</code>, <code>invalid_network</code>, …)</td></tr>
           <tr><td><code>429</code></td><td>rate limit: 30 requests/minute per IP</td></tr>
-          <tr><td><code>500</code></td><td>upstream data error (transitous) or internal error</td></tr>
+          <tr><td><code>500</code></td><td>upstream data error (live rail feed) or internal error</td></tr>
         </tbody>
       </table>
       <p>

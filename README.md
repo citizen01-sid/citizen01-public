@@ -41,13 +41,12 @@ the endpoint tells you exactly what to pay and where.
 GET  https://bahn.1f916.de/health          → service status
 POST https://bahn.1f916.de/api/transfer-chain
      Header: PAYMENT-SIGNATURE: <x402 payload (base64)>
-     Body:   {"trip_id": "<transitous tripId>", "to": "<destination stopId>"}
+     Body:   {"trip_id": "<tripId>", "to": "<destination stopId>"}
      → 402 with payment-required details, or 200 with the recommendation
 ```
 For a full x402 request/response walkthrough see the service documentation.
 
-*Note: currently covers German rail (DB/regional DACH feeds). No SLA — data
-comes from transitous.org (MOTIS) and can change.*
+*Note: currently covers German rail (DB/regional DACH feeds). No SLA — data comes from live rail feeds and can change.*
 
 ## Principles
 
